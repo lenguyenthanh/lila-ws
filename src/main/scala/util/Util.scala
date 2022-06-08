@@ -2,7 +2,7 @@ package lila.ws
 package util
 
 import java.security.SecureRandom
-import java.util.concurrent.ThreadLocalRandom.{ current as local }
+import java.util.concurrent.ThreadLocalRandom.current as local
 
 object Util:
 

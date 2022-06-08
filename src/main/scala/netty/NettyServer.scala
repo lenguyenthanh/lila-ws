@@ -62,4 +62,3 @@ final class NettyServer(
     finally
       bossGroup.shutdownGracefully()
       workerGroup.shutdownGracefully()
-
