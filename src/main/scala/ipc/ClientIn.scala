@@ -1,7 +1,7 @@
 package lila.ws
 package ipc
 
-import chess.{ Check, Color, Ply }
+import chess.{ Check, Color, Ply, Square }
 import chess.format.{ EpdFen, Uci, UciCharPair, UciPath }
 import chess.opening.Opening
 import chess.variant.Crazyhouse
@@ -121,9 +121,9 @@ object ClientIn:
       move: Uci.WithSan,
       fen: EpdFen,
       check: Check,
-      dests: Map[chess.Pos, List[chess.Pos]],
+      dests: Map[Square, List[Square]],
       opening: Option[Opening],
-      drops: Option[List[chess.Pos]],
+      drops: Option[List[Square]],
       crazyData: Option[Crazyhouse.Data],
       chapterId: Option[ChapterId]
   ) extends ClientIn:

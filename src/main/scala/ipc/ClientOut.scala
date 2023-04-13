@@ -3,7 +3,7 @@ package ipc
 
 import chess.format.{ Fen, Uci, UciPath }
 import chess.variant.Variant
-import chess.{ Centis, Color, Pos }
+import chess.{ Centis, Color, Square }
 import play.api.libs.json.*
 import scala.util.{ Success, Try }
 import cats.data.NonEmptyList
@@ -31,8 +31,8 @@ object ClientOut:
   case class Opening(variant: Variant, path: UciPath, fen: Fen.Epd) extends ClientOutSite
 
   case class AnaMove(
-      orig: Pos,
-      dest: Pos,
+      orig: Square,
+      dest: Square,
       fen: Fen.Epd,
       path: UciPath,
       variant: Variant,
@@ -43,7 +43,7 @@ object ClientOut:
 
   case class AnaDrop(
       role: chess.Role,
-      pos: Pos,
+      pos: Square,
       fen: Fen.Epd,
       path: UciPath,
       variant: Variant,
@@ -159,8 +159,8 @@ object ClientOut:
             case "anaMove" =>
               for
                 d    <- o obj "d"
-                orig <- d str "orig" flatMap { Pos.fromKey(_) }
-                dest <- d str "dest" flatMap { Pos.fromKey(_) }
+                orig <- d str "orig" flatMap { Square.fromKey(_) }
+                dest <- d str "dest" flatMap { Square.fromKey(_) }
                 path <- d.get[UciPath]("path")
                 fen  <- d.get[Fen.Epd]("fen")
                 variant   = dataVariant(d)
@@ -171,7 +171,7 @@ object ClientOut:
               for
                 d    <- o obj "d"
                 role <- d str "role" flatMap chess.Role.allByName.get
-                pos  <- d str "pos" flatMap { Pos.fromKey(_) }
+                pos  <- d str "pos" flatMap { Square.fromKey(_) }
                 path <- d.get[UciPath]("path")
                 fen  <- d.get[Fen.Epd]("fen")
                 variant   = dataVariant(d)
